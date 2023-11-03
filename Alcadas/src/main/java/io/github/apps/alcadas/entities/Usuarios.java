@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -21,15 +21,15 @@ public class Usuarios {
 	Integer id;
 
 	@Column(name = "NOME", nullable = false, length = 128 )
-	@NotBlank(message = "NOME é obrigatório até 128 letras")
+	@NotEmpty(message = "Campo nome é obrigatório até 128 letras")
 	String nome;
 
 	@Column(name = "LOGIN", nullable = false, unique = true, length = 32 )
-	@NotBlank(message = "LOGIN é obrigatório até 32 letras")
+	@NotEmpty(message = "Campo login é obrigatório até 32 letras")
 	String login;
 	
 	@Column(name = "SENHA", nullable = false, length = 64 )
-	@NotBlank(message = "SENHA é obrigatório até 64 letras")
+	@NotEmpty(message = "Campo senha é obrigatório até 64 letras")
 	String senha;
 	
 	@Column(name = "DATA_CADASTRO")
@@ -39,7 +39,12 @@ public class Usuarios {
 	LocalDateTime dataAtualizacao;
 	
 	@Column(name = "NOME_ATUALIZACAO", length = 128)
+	@NotEmpty(message = "Campo nome atualizacao é obrigatório até 128 letras")
 	String nomeAtualizacao;
+	
+	@Column(name = "NOME_CADASTRO", length = 128)
+	@NotEmpty(message = "Campo nome cadastro é obrigatório até 128 letras")
+	String nomeCadastro;
 
 }
 

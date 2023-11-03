@@ -1,5 +1,6 @@
 package io.github.apps.alcadas.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,17 @@ public class UsuariosServ {
 	}
 	
 	public Optional<?> salvar(Usuarios usuarios) {
+		Usuarios usuario = repo.findByNomeLike(usuarios.getNome());
+		if(usuario == null) {
+			usuarios.setDataCadastro(LocalDateTime.now());
+			usuarios.setNomeAtualizacao("SYSTEM");
+			usuarios.setNomeCadastro("SYSTEM");
+		} else {
+			usuarios.setId(usuario.getId());
+			usuarios.setDataCadastro(usuario.getDataCadastro());
+			usuarios.setNomeCadastro(usuario.getNomeCadastro());
+		}
+		usuarios.setDataAtualizacao(LocalDateTime.now());
 		repo.save(usuarios);
 		return(repo.findById(usuarios.getId()));
 	}

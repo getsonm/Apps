@@ -1,6 +1,5 @@
 package io.github.apps.alcadas.controller;
 
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import io.github.apps.alcadas.entities.Usuarios;
 import io.github.apps.alcadas.service.UsuariosServ;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -38,10 +37,7 @@ public class UsuariosControl {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Object> listarPorID(@RequestBody Usuarios usuarios) {
-		usuarios.setNomeAtualizacao("SYSTEM");
-		usuarios.setDataCadastro(LocalDateTime.now());
-		usuarios.setDataAtualizacao(LocalDateTime.now());
+	public ResponseEntity<Object> listarPorID(@RequestBody @Valid Usuarios usuarios) {
 		return new ResponseEntity<Object>(service.salvar(usuarios), HttpStatus.OK);
 	}
 }
